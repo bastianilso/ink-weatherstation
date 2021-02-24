@@ -37,13 +37,13 @@ with open(svg_out, "wb") as o:
 
 #print(os.path.join(screendir, filename_out))
 # Inkscape 0.9.x Flatpak
-os.system("flatpak run --command=\'inkscape\' org.inkscape.Inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page -e " + os.path.join(screendir, filename_out + '.png'))
+#os.system("flatpak run --command=\'inkscape\' org.inkscape.Inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page -e " + os.path.join(screendir, filename_out + '.png'))
 
 # Inkscape 0.9.x
-#os.system("inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page -e " + os.path.join(screendir, filename_out + '.png'))
+os.system("inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page -e " + os.path.join(screendir, filename_out + '.png'))
 # Inkscape 1.0
 #os.system("inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page --export-filename " + os.path.join(screendir, filename_out + '.png'))
-#os.system("convert " + os.path.join(screendir, filename_out + '.png') + " -rotate 90 " + os.path.join(bmpdir, filename_out + '.bmp'))
+os.system("convert " + os.path.join(screendir, filename_out + '.png') + " -rotate 90 " + os.path.join(bmpdir, filename_out + '.bmp'))
 # Transfer to e-ink screen
-#os.system("sudo ./epd -2.30")
+os.system("cd /home/dietpi/IT8951-ePaper/ && sudo ./epd -2.30")
 
