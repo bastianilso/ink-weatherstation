@@ -41,7 +41,7 @@ def WeatherUpdate(tree):
     user_agent = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     url ="https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=57.0488&lon=9.9217"
     response = requests.get(url, headers = user_agent)
-    print(response.text)
+    #print(response.text)
     data = json.loads(response.text)
     
     for i in range(1,10):

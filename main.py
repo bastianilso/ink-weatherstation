@@ -35,7 +35,7 @@ CalendarUpdate(tree)
 with open(svg_out, "wb") as o:
     o.write(etree.tostring(tree, pretty_print=True))
 
-print(os.path.join(screendir, filename_out))    
+#print(os.path.join(screendir, filename_out))
 # Inkscape 0.9.x Flatpak
 os.system("flatpak run --command=\'inkscape\' org.inkscape.Inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page -e " + os.path.join(screendir, filename_out + '.png'))
 
