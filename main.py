@@ -5,6 +5,7 @@ import os
 assetsdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'assets')
 libdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lib')
 screendir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'screen')
+bmpdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'bmp-out')
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
@@ -39,7 +40,7 @@ print(os.path.join(screendir, filename_out))
 os.system("inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page -e " + os.path.join(screendir, filename_out + '.png'))
 # Inkscape 1.0
 #os.system("inkscape -w 1404 -h 1872 " + os.path.join(screendir, filename_out + '.svg') + " --export-area-page --export-filename " + os.path.join(screendir, filename_out + '.png'))
-os.system("convert " + os.path.join(screendir, filename_out + '.png') + " " + os.path.join(screendir, filename_out + '.bmp'))
+os.system("convert " + os.path.join(screendir, filename_out + '.png') + " -rotate 90 " + os.path.join(bmpdir, filename_out + '.bmp'))
 # Transfer to e-ink screen
 #os.system("sudo ./epd -2.30")
 
