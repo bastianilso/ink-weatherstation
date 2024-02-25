@@ -65,6 +65,9 @@ def FetchMonthBirthdays(calendars):
     bd_val = [" " for i in range(6)]
     bn_val = [" " for i in range(6)]
 
+    # the calendar events do not necessarily arrive in chronological order, therefore sort them.
+    events_fetched.sort(key=lambda x: datetime(x.vobject_instance.vevent.dtstart.value.year, x.vobject_instance.vevent.dtstart.value.month, x.vobject_instance.vevent.dtstart.value.day).date())
+
     for i in range(len(events_fetched)):
         bd_val[i] = events_fetched[i].vobject_instance.vevent.dtstart.value.strftime("%d/%m")
         name = events_fetched[i].vobject_instance.vevent.summary.value[2:]
