@@ -5,6 +5,9 @@ import traceback
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+import locale
+
+
 
 ######################
 # Setup Logging System
@@ -58,11 +61,15 @@ def update_screen():
 
     slideshow_id = 'slideshow-plants'
 
+    # set locale to danish while creating content
+    sys_locale = locale.getlocale()
+    locale.setlocale(locale.LC_ALL, 'da_DK.UTF-8')
     WeatherUpdate(tree)
     SlideshowUpdate(tree, assetsdir, slideshow_id)
     CalendarUpdate(tree)
     
-
+    # set locale back to system for export, to avoid converting ø to weird characters. 
+    locale.setlocale(locale.LC_ALL, sys_locale)
 
     with open(svg_out, "wb") as o:
         o.write(etree.tostring(tree, pretty_print=True))
