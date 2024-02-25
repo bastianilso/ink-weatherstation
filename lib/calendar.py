@@ -3,7 +3,7 @@
 import json
 import caldav
 from lxml import etree
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
 caldav_url = ''
 username = ''
@@ -23,18 +23,21 @@ def FetchTodaysProgram(calendars):
         print(c.name)
         if c.name == "SandraBastianKalender":
             cal = c
-    events_fetched = cal.date_search(start=date.today(), end=date.today() + timedelta(days=2), expand=True)
+    events_fetched = cal.date_search(start=date.today(), end=date.today() + timedelta(days=7), expand=True)
     for e in events_fetched:
         print(e.vobject_instance.vevent.summary.value)
     en_val = [" " for i in range(6)]
     ed_val = [" " for i in range(6)]
 
+    # the calendar events do not necessarily arrive in chronological order, therefore sort them.
+    events_fetched.sort(key=lambda x: datetime(x.vobject_instance.vevent.dtstart.value.year, x.vobject_instance.vevent.dtstart.value.month, x.vobject_instance.vevent.dtstart.value.day).date())
+
     for i in range(len(events_fetched)):
         print(events_fetched[i].vobject_instance.vevent.summary.value)
         name = events_fetched[i].vobject_instance.vevent.summary.value
-        en_val[i] = (name[:24] + '..') if len(name) > 24 else name
+        en_val[i] = (name[:24] + '..') if len(name) > 42 else name
         ed_date = events_fetched[i].vobject_instance.vevent.dtstart.value
-        if ed_date < date.today():
+        if datetime(ed_date.year, ed_date.month, ed_date.day).date() < date.today():
             ed_date = date.today()
         ed_val[i] = ed_date.strftime("%d/%m")
 
