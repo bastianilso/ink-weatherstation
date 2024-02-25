@@ -20,7 +20,8 @@ client = caldav.DAVClient(url=caldav_url, username=username, password=user_pw)
 def FetchTodaysProgram(calendars):
     cal = calendars[0]
     for c in calendars:
-        if c.name == "Personal":
+        print(c.name)
+        if c.name == "SandraBastianKalender":
             cal = c
     events_fetched = cal.date_search(start=date.today(), end=date.today() + timedelta(days=1), expand=True)
     for e in events_fetched:
