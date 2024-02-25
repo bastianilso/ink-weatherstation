@@ -9,22 +9,21 @@ from lxml import etree
 
 ns = {'s': 'http://www.w3.org/2000/svg'}
 
-w_names =  {'clear': "clear sky",
-'cloudy': "cloudy",
-'fair': "fair weather",
-'fog': "foggy",
-'heavyrain': "heavy rain",
-'heavysleet': "heavy sleet",
-'heavysnow': "heavy snow",
-'lightrain': "light rain",
-'lightsleet': "light sleet",
-'lightsnow': "light snow",
-'partlycloudy': "partly cloudy",
-'heavyrainshower': "heavy rain shower",
-'heavysleet': "heavy sleet",
-'rain': "rainy",
-'sleet': "sleety",
-'snow': "snowy" }
+w_names =  {'clear': "skyfrit",
+'cloudy': "skyet",
+'fair': "godt vejr",
+'fog': "tåget",
+'heavyrain': "masser af regn",
+'heavysleet': "masser af hagl",
+'heavysnow': "masser af sne",
+'lightrain': "dråber i luften",
+'lightsleet': "strejf af hagl",
+'lightsnow': "en smule sne",
+'partlycloudy': "delvist skyet",
+'heavyrainshower': "et ordentligt regnskyld",
+'rain': "regnvejr",
+'sleet': "hagl",
+'snow': "sne" }
 
 def ChooseWeatherIcon(tree, weather, icons, namespace):
     print(icons)
@@ -88,16 +87,16 @@ def WeatherUpdate(tree):
                     weather_name = w_names[key]
         
         c_date = datetime.strptime(data['properties']['timeseries'][i]['time'],"%Y-%m-%dT%H:%M:%SZ")
-        textstring += calendar.day_name[c_date.weekday()]
+        textstring += calendar.day_name[c_date.weekday()].capitalize()
         textstring += " "
         textstring += weather_name
-        textstring += " with "
+        textstring += " med "
         textstring += str(data['properties']['timeseries'][i]['data']['instant']['details']['wind_speed'])
         textstring += " "
         textstring += data['properties']['meta']['units']['wind_speed']
         textstring += ". "
     # Add string describing latest update.
-    textstring += "Updated on "
+    textstring += "Opdateret d. "
     textstring += datetime.now().strftime("%d/%m %H:%M")
     textstring += ". "
     print(textstring)
@@ -126,7 +125,7 @@ def WeatherUpdate(tree):
         # set 3-letter weekday
         d_id = "$d" + str(i)
         if d_id == "$d1":
-            d_val = calendar.day_name[date.today().weekday()] + " " + date.today().strftime("%d/%m")
+            d_val = calendar.day_name[date.today().weekday()].capitalize() + " " + date.today().strftime("%d/%m")
             SetText(tree, d_id, d_val)
         else:
             c_date = datetime.strptime(data['properties']['timeseries'][i]['time'],"%Y-%m-%dT%H:%M:%SZ")
