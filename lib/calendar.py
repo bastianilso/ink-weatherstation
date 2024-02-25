@@ -2,8 +2,10 @@
 # -*- coding:utf-8 -*-
 import json
 import caldav
+import calendar
 from lxml import etree
 from datetime import datetime, date, timedelta
+
 
 caldav_url = ''
 username = ''
@@ -37,13 +39,17 @@ def FetchTodaysProgram(calendars):
         name = events_fetched[i].vobject_instance.vevent.summary.value
         en_val[i] = (name[:24] + '..') if len(name) > 42 else name
         ed_date = events_fetched[i].vobject_instance.vevent.dtstart.value
-        if datetime(ed_date.year, ed_date.month, ed_date.day).date() < date.today():
+        print(datetime(ed_date.year, ed_date.month, ed_date.day).date())
+        print(date.today())
+        if datetime(ed_date.year, ed_date.month, ed_date.day).date() <= date.today():
             ed_date = date.today()
-        ed_val[i] = ed_date.strftime("%d/%m")
+            ed_val[i] = "I DAG"
+        else:
+            ed_val[i] = " " + calendar.day_name[ed_date.weekday()][:3].upper() #ed_date.strftime("%d/%m")
 
     if len(events_fetched) == 0:
-        en_val[0] = "ingen planer."
-        ed_val[0] = date.today().strftime("%d/%m")
+        en_val[0] = "Ingen planer."
+        ed_val[0] = " " + calendar.day_name[date.today().weekday()][:3].upper()
     
     
     return(en_val,ed_val)
