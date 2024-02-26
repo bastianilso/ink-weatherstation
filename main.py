@@ -69,7 +69,7 @@ def update_screen():
     CalendarUpdate(tree)
     
     # set locale back to system for export, to avoid converting ø to weird characters. 
-    locale.setlocale(locale.LC_ALL, sys_locale)
+    locale.setlocale(locale.LC_ALL, 'C')
 
     with open(svg_out, "wb") as o:
         o.write(etree.tostring(tree, pretty_print=True))
