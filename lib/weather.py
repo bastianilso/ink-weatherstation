@@ -2,10 +2,15 @@
 # -*- coding:utf-8 -*-
 import json
 import requests
+from requests.adapters import HTTPAdapter, Retry
 from datetime import date, datetime
 from suntime import Sun
 import calendar
 from lxml import etree
+
+session = requests.Session()
+retries = Retry(total=5, backoff_factor=2, status_forcelist=[502, 503, 504])
+session.mount('http://', HTTPAdapter(max_retries=retries))
 
 ns = {'s': 'http://www.w3.org/2000/svg'}
 
@@ -58,7 +63,8 @@ def WeatherUpdate(tree):
     #user_agent = {'User-agent': 'Mozilla/5.0'}
     user_agent = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     url ="https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=57.0488&lon=9.9217"
-    response = requests.get(url, headers = user_agent)
+    response = session.get(url, headers = user_agent)
+        
     #print(response.text).weekday()
     data = json.loads(response.text)
     
