@@ -35,6 +35,9 @@ def FetchTodaysProgram(calendars):
     events_fetched.sort(key=lambda x: datetime(x.vobject_instance.vevent.dtstart.value.year, x.vobject_instance.vevent.dtstart.value.month, x.vobject_instance.vevent.dtstart.value.day).date())
 
     for i in range(len(events_fetched)):
+        # stop labeling when we exceed labeling limit.
+        if i >= len(en_val):
+            break
         print(events_fetched[i].vobject_instance.vevent.summary.value)
         name = events_fetched[i].vobject_instance.vevent.summary.value
         en_val[i] = (name[:24] + '..') if len(name) > 42 else name
