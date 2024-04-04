@@ -6,7 +6,16 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 import locale
+from lib.customdns2 import SessionCustomDNS
+import requests
 
+######################
+# Setup Logging System
+######################
+print(SessionCustomDNS)
+requests.sessions.Session = SessionCustomDNS
+requests.Session = SessionCustomDNS
+print(type(requests.Session()))
 
 
 ######################
@@ -50,6 +59,8 @@ logger.debug(screendir)
 logger.debug(bmpdir)
 logger.debug(svg_template)
 logger.debug(svg_out)
+
+
 
 ######################
 # Code Logic

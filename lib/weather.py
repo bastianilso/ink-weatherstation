@@ -9,8 +9,6 @@ import calendar
 from lxml import etree
 
 session = requests.Session()
-retries = Retry(total=5, backoff_factor=2, status_forcelist=[502, 503, 504])
-session.mount('http://', HTTPAdapter(max_retries=retries))
 
 ns = {'s': 'http://www.w3.org/2000/svg'}
 

@@ -3,6 +3,7 @@
 import json
 import caldav
 import calendar
+import requests
 from lxml import etree
 from datetime import datetime, date, timedelta
 
