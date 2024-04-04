@@ -40,7 +40,7 @@ def FetchTodaysProgram(calendars):
             break
         print(events_fetched[i].vobject_instance.vevent.summary.value)
         name = events_fetched[i].vobject_instance.vevent.summary.value
-        en_val[i] = (name[:24] + '..') if len(name) > 42 else name
+        en_val[i] = (name[:24] + '..') if len(name) > 39 else name
         ed_date = events_fetched[i].vobject_instance.vevent.dtstart.value
         print(datetime(ed_date.year, ed_date.month, ed_date.day).date())
         print(date.today())
@@ -74,7 +74,7 @@ def FetchMonthBirthdays(calendars):
     for i in range(len(events_fetched)):
         bd_val[i] = events_fetched[i].vobject_instance.vevent.dtstart.value.strftime("%d/%m")
         name = events_fetched[i].vobject_instance.vevent.summary.value[2:]
-        bn_val[i] = (name[:24] + '..') if len(name) > 24 else name
+        bn_val[i] = (name[:21] + '..') if len(name) > 23 else name
 
     if len(events_fetched) == 0:
         bd_val[0] = "ingen fødselsdage."
